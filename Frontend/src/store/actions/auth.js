@@ -1,34 +1,34 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 
-export const authStart = () => {
+const authStart = () => {
     return {
         type: actionTypes.AUTH_START
     }
 }
 
-export const authSuccess = user => {
+const authSuccess = user => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         user: user
     }
 }
 
-export const authFail = error => {
+const authFail = error => {
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
     }
 }
 
-export const authLogout = () => {
+const authLogout = () => {
     localStorage.removeItem('user')
     return {
         type: actionTypes.AUTH_LOGOUT
     }
 }
 
-export const checkAuthTimeout = expirationTime => {
+const checkAuthTimeout = expirationTime => {
     return dispatch => {
         setTimeout(() => {
             dispatch(authLogout())
@@ -41,7 +41,7 @@ export const authLogin = (username, password) => {
 
         dispatch(authStart())
 
-        axios.post('rest-auth/login/', {
+        axios.post('http://localhost:8000/rest-auth/login/', {
             username: username,
             password: password
         })
@@ -56,12 +56,12 @@ export const authLogin = (username, password) => {
                 }
 
                 localStorage.setItem('user', JSON.stringify(user))
-                dispatch(authSuccess())
+                dispatch(authSuccess(user))
                 dispatch(checkAuthTimeout(3600))
             })
             .catch(error => {
                 dispatch(authFail(error))
-                console.log(error.response)
+                console.log(error.response.data)
             })
     }
 }
@@ -78,7 +78,7 @@ export const authSignup = (username, email, password1, password2, first_name, la
             first_name: first_name,
             last_name: last_name
         }
-        axios.post('rest-auth/registration', user)
+        axios.post('http://localhost:8000/rest-auth/registration', user)
             .then(response => {
                 console.log(response.data)
                 const user = {
