@@ -13,6 +13,22 @@ export class Register extends Component {
         password2: ""
     };
 
+    onSubmit = e => {
+        e.preventDefault();
+        const { username, email, password, password2 } = this.state;
+        if (password !== password2) {
+            console.log("Passwords do not match");
+        } else {
+            this.props.onSignup(username, email, password, password2);
+        }
+    };
+
+    onChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+
     render() {
 
         const { username, email, password, password2 } = this.state;
@@ -84,9 +100,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSignup: (username, email, password1, password2, firstname, lastname) => dispatch(actions.authSignup(username, email, password1, password2, firstname, lastname))
+        onSignup: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2))
     }
 }
 
 
-export default connect()(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
