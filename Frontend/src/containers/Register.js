@@ -23,40 +23,44 @@ const formValid = ({ formErrors, ...rest }) => {
 export class Register extends Component {
 
     state = {
-        username: "",
-        email: "",
-        password: "",
-        password2: "",
-        formErrors: {
+        formInput: {
             username: "",
             email: "",
             password: "",
             password2: "",
-        }
+            formErrors: {
+                username: "",
+                email: "",
+                password: "",
+                password2: "",
+            }
+        },
+        formMessage: null
+
     };
 
 
 
     onSubmit = e => {
         e.preventDefault();
-        // const { username, email, password, password2 } = this.state;
-        if (formValid(this.state)) {
-            this.props.onSignup(this.state.username, this.state.email, this.state.password, this.state.password2);
+        const { username, email, password, password2 } = this.state.formInput;
+        if (formValid(this.state.formInput)) {
+            this.props.onSignup(username, email, password, password2);
         } else {
-            console.log("FORM INVALID - DISPLAY ERROR MESSAGE");
+            this.setState({ ...this.state, formMessage: "FORM INVALID" })
         }
     };
 
     onChange = e => {
 
         const { name, value } = e.target
-        let formErrors = this.state.formErrors
+        let formErrors = this.state.formInput.formErrors
 
         switch (name) {
             case "username":
                 formErrors.username =
-                    value.length < 6
-                        ? 'minimum 6 characters required'
+                    value.length < 3
+                        ? 'minimum 3 characters required'
                         : ""
                 break
             case 'email':
@@ -73,7 +77,7 @@ export class Register extends Component {
                 break
             case 'password2':
                 formErrors.password2 =
-                    this.state.password !== value
+                    this.state.formInput.password !== value
                         ? "Passwords do not match"
                         : ""
                 break
@@ -81,18 +85,30 @@ export class Register extends Component {
                 break
         }
 
-        this.setState({ formErrors, [name]: value }, () => console.log(this.state))
+        this.setState({ ...this.state, formInput: { ...this.state['formInput'], formErrors, [name]: value } }, () => console.log(this.state))
     };
 
     render() {
 
-        const { username, email, password, password2 } = this.state;
-        const { formErrors } = this.state
+        const { username, email, password, password2 } = this.state.formInput;
+        const { formErrors } = this.state.formInput
+
+        let errorMessage = null
+        if (this.state.formMessage !== null) {
+            errorMessage = (
+                <div className="alert alert-dismissible alert-danger">
+                    <strong>{this.state.formMessage}</strong>: Change a few things up and try submitting again.
+                </div>
+            )
+
+
+        }
 
         return (
             <div className="col-md-6 m-auto">
                 <div className="card card-body mt-5">
-                    <h2 className="text-center">Register</h2>
+                    <h2 className="text-center mb-1">Register</h2>
+                    {errorMessage}
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>username</label>
@@ -147,7 +163,7 @@ export class Register extends Component {
                             )}
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary btn-lg btn-block">
+                            <button type="submit" className="btn btn-primary btn-block">
                                 Register
                             </button>
                         </div>

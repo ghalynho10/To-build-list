@@ -31,10 +31,10 @@ export class Login extends Component {
         return (
             <div className="container">
                 <div className="row mt-5">
-                    <div className="col-md-6">
+                    <div className="col-md-8">
                         <h1 className="header-h1">Build Your Projects With Us</h1>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4 header-form" >
                         <div className="card card-body">
                             <h2 className="text-center">Login</h2>
 
@@ -60,7 +60,7 @@ export class Login extends Component {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <button type="button" className="btn btn-primary btn-lg btn-block">
+                                    <button type="submit" className="btn btn-primary btn-block">
                                         Login
                                     </button>
                                 </div>
