@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth'
+import './Login.css'
 
 import { Link } from 'react-router-dom'
 
@@ -31,7 +32,7 @@ export class Login extends Component {
             <div className="container">
                 <div className="row mt-5">
                     <div className="col-md-6">
-                        <h1>Build Your Projects With Us</h1>
+                        <h1 className="header-h1">Build Your Projects With Us</h1>
                     </div>
                     <div className="col-md-6">
                         <div className="card card-body">
@@ -59,7 +60,7 @@ export class Login extends Component {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <button type="submit" className="btn btn-primary">
+                                    <button type="button" className="btn btn-primary btn-lg btn-block">
                                         Login
                                     </button>
                                 </div>
