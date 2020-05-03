@@ -32,13 +32,15 @@ export class Login extends Component {
             <div className="container">
                 <div className="row mt-5">
                     <div className="col-md-8">
-                        <h1 className="header-h1">Build Your Projects With Us</h1>
+                        <p className="header-h1">Welcome to <span style={{ textDecoration: "underline" }}>Project Tracker</span></p>
+                        <p className="pt-3 mt-3" style={{ fontSize: "1.5rem" }}> The number one and ultimate place to build your projects. We help you build your projects by providing the assistance that you need throughout the process. Start building your projects with us today. What are you waiting for?<br /> Let's Have fun!</p>
+                        <button type="button" className="btn btn-primary pt-3 mt-3"> Read More </button>
                     </div>
-                    <div className="col-md-4 header-form" >
+                    <div className="col-md-4 header-form mt-3" >
                         <div className="card card-body">
                             <h2 className="text-center">Login</h2>
 
-                            <form method="POST" onSubmit={this.onSubmit}>
+                            <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <label className="lead">Username</label>
                                     <input
