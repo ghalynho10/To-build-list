@@ -1,9 +1,11 @@
 from django.db import models
+from users.models import User
 
 # Create your models here.
 
 
 class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     isActive = models.BooleanField(default=True)
@@ -35,7 +37,7 @@ class Bug(models.Model):
 class WeeklyTask(models.Model):
     objective = models.CharField(max_length=500)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    todo = models.ForeignKey(Todo, on_delete=models.CASCADE)
+    todo = models.OneToOneField(Todo, on_delete=models.CASCADE)
     bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
     week = models.SmallIntegerField()
 

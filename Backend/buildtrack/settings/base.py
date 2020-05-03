@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 
     'core',
     'users.apps.UsersConfig',
-    'projectbuilder'
+    'projectbuilder.apps.ProjectbuilderConfig'
 
 ]
 
