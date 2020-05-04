@@ -21,7 +21,7 @@ const authFail = error => {
     }
 }
 
-const authLogout = () => {
+export const authLogout = () => {
     localStorage.removeItem('user')
     return {
         type: actionTypes.AUTH_LOGOUT

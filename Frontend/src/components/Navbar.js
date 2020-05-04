@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import HOC from '../HOC/hoc'
+import * as actions from '../store/actions/auth'
+
 
 export class Navbar extends Component {
+
+    logoutHandler = () => {
+        this.props.logout()
+    }
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -13,18 +22,32 @@ export class Navbar extends Component {
 
                     <div className="collapse navbar-collapse" id="navbarColor01">
                         <ul className="navbar-nav ml-auto">
-                            {/* <li className="nav-item">
-                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Features</a>
-                        </li> */}
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">ABout</a>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/register" className="nav-link">Register</NavLink>
-                            </li>
+                            {
+                                this.props.token !== null ?
+                                    <HOC>
+                                        <li className="nav-item">
+                                            <NavLink to="/" className="nav-link">Home <span className="sr-only">(current)</span></NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">Features</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">New Project</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a href="/logout" onClick={this.logoutHandler} className="nav-link">Logout</a>
+                                        </li>
+                                    </HOC>
+                                    :
+                                    <HOC>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">ABout</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink to="/register" className="nav-link">Register</NavLink>
+                                        </li>
+                                    </HOC>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -32,5 +55,16 @@ export class Navbar extends Component {
         )
     }
 }
+let token = JSON.parse(localStorage.getItem('user'))
+const mapStateToProps = (state) => ({
+    token: token ? token.token : state.auth.token
+})
 
-export default Navbar
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(actions.authLogout())
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
