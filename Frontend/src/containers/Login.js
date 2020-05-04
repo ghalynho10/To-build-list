@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth'
 import './Login.css'
 
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 
 export class Login extends Component {
@@ -26,6 +26,11 @@ export class Login extends Component {
     };
 
     render() {
+
+        if (this.props.token !== null) {
+            return <Redirect to="/" />
+        }
+
         const { username, password } = this.state;
 
         return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
 import HOC from '../HOC/hoc'
 import * as actions from '../store/actions/auth'
@@ -12,6 +12,11 @@ export class Navbar extends Component {
     }
 
     render() {
+        const registerPageIsActive = !!matchPath(
+            this.props.history.location.pathname,
+            '/register'
+        );
+
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container">
@@ -35,7 +40,7 @@ export class Navbar extends Component {
                                             <a className="nav-link" href="#">New Project</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a href="/logout" onClick={this.logoutHandler} className="nav-link">Logout</a>
+                                            <a onClick={this.logoutHandler} className="nav-link" style={{ cursor: "pointer" }}>Logout</a>
                                         </li>
                                     </HOC>
                                     :
@@ -43,9 +48,17 @@ export class Navbar extends Component {
                                         <li className="nav-item">
                                             <a className="nav-link" href="#">ABout</a>
                                         </li>
-                                        <li className="nav-item">
-                                            <NavLink to="/register" className="nav-link">Register</NavLink>
-                                        </li>
+                                        {
+                                            registerPageIsActive ?
+                                                <li className="nav-item">
+                                                    <NavLink to="/login" className="nav-link">Login</NavLink>
+                                                </li>
+                                                :
+                                                <li className="nav-item">
+                                                    <NavLink to="/register" className="nav-link">Register</NavLink>
+                                                </li>
+                                        }
+
                                     </HOC>
                             }
                         </ul>
@@ -67,4 +80,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar))
