@@ -35,6 +35,7 @@ class Bug(models.Model):
 
 
 class WeeklyTask(models.Model):
+    title = models.CharField(max_length=200, null=True)
     objective = models.CharField(max_length=500)
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name='projects')
@@ -44,4 +45,4 @@ class WeeklyTask(models.Model):
     week = models.SmallIntegerField()
 
     def __str__(self):
-        return self.objective
+        return self.title
