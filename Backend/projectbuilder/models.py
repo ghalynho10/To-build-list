@@ -36,9 +36,11 @@ class Bug(models.Model):
 
 class WeeklyTask(models.Model):
     objective = models.CharField(max_length=500)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    todo = models.OneToOneField(Todo, on_delete=models.CASCADE)
-    bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name='projects')
+    todo = models.OneToOneField(
+        Todo, on_delete=models.CASCADE, related_name='todo')
+    bug = models.ForeignKey(Bug, on_delete=models.CASCADE, related_name='bugs')
     week = models.SmallIntegerField()
 
     def __str__(self):
