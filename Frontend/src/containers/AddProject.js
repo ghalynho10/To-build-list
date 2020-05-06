@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import * as actions from '../store/actions/project'
 
 export class AddProject extends Component {
 
@@ -8,11 +9,23 @@ export class AddProject extends Component {
         description: ""
     };
 
+
     onChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
     };
+
+    onSubmit = e => {
+        e.preventDefault()
+        const project = {
+            title: this.state.title,
+            description: this.state.description
+        }
+        console.log(this.props.token)
+
+        this.props.onCreateAssignment(this.props.token, project)
+    }
 
     render() {
 
@@ -35,10 +48,10 @@ export class AddProject extends Component {
                         </div>
                         <div className="form-group">
                             <label>Image (Optional)</label>
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile02" />
-                                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                            <div className="input-group mb-3">
+                                <div className="custom-file">
+                                    <input type="file" className="custom-file-input" id="inputGroupFile02" />
+                                    <label className="custom-file-label" htmlFor="inputGroupFile02">Choose file</label>
                                 </div>
                             </div>
                         </div>
@@ -63,11 +76,14 @@ export class AddProject extends Component {
 }
 
 const mapStateToProps = (state) => ({
-
+    token: state.auth.token,
+    username: state.auth.username
 })
 
-const mapDispatchToProps = {
-
+const mapDispatchToProps = dispatch => {
+    return {
+        onCreateAssignment: (token, project) => dispatch(actions.createProjects(token, project))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProject)

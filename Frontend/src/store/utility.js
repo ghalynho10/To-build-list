@@ -5,3 +5,5 @@ export const updateObject = (oldObject, updatedProperties) => {
         ...updatedProperties
     }
 }
+
+export default updateObject

@@ -37,7 +37,7 @@ export class Navbar extends Component {
                                             <a className="nav-link" href="#">Features</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href="#">New Project</a>
+                                            <NavLink to="/add" className="nav-link">New Project</NavLink>
                                         </li>
                                         <li className="nav-item">
                                             <a onClick={this.logoutHandler} className="nav-link" style={{ cursor: "pointer" }}>Logout</a>

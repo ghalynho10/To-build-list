@@ -11,11 +11,13 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 
 import auth from './store/reducers/auth'
+import project from './store/reducers/project'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const rootReducer = combineReducers({
-  auth: auth
+  auth: auth,
+  project: project
 })
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
