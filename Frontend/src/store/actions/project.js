@@ -8,9 +8,10 @@ const createProjectStart = () => {
     }
 }
 
-const createProjectSuccess = () => {
+const createProjectSuccess = project => {
     return {
-        type: actionTypes.CREATE_PROJECT_SUCCESS
+        type: actionTypes.CREATE_PROJECT_SUCCESS,
+        project: project
     }
 }
 
@@ -76,7 +77,7 @@ export const createProjects = (token, project) => {
 
         axios.post("http://localhost:8000/projects/", project)
             .then(response => {
-                dispatch(createProjectSuccess())
+                dispatch(createProjectSuccess(response.data))
                 console.log(response.data)
             })
             .catch(err => {

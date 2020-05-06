@@ -16,6 +16,7 @@ export class Navbar extends Component {
             this.props.history.location.pathname,
             '/register'
         );
+        console.log(this.props)
 
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">

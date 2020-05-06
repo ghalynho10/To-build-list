@@ -42,6 +42,7 @@ const createProjectsStart = (state, action) => {
 
 const createProjectsSuccess = (state, action) => {
     return updateObject(state, {
+        projects: action.project,
         loading: false,
         error: null
     })
