@@ -2,24 +2,11 @@ import React, { Component } from 'react'
 import { NavLink, withRouter, matchPath } from 'react-router-dom'
 import { connect } from 'react-redux'
 import HOC from '../HOC/hoc'
-import * as actions from '../store/actions/auth'
 
-
-export class Navbar extends Component {
-
-    logoutHandler = () => {
-        this.props.logout()
-    }
-
+export class Footer extends Component {
     render() {
-        const registerPageIsActive = !!matchPath(
-            this.props.history.location.pathname,
-            '/register'
-        );
-        console.log(this.props)
-
         return (
-            <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container">
                     <NavLink className="navbar-brand" to='/'>Project Tracker</NavLink>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +36,7 @@ export class Navbar extends Component {
                                         <li className="nav-item">
                                             <a className="nav-link" href="#">ABout</a>
                                         </li>
-                                        {
+                                        {/* {
                                             registerPageIsActive ?
                                                 <li className="nav-item">
                                                     <NavLink to="/login" className="nav-link">Login</NavLink>
@@ -58,7 +45,7 @@ export class Navbar extends Component {
                                                 <li className="nav-item">
                                                     <NavLink to="/register" className="nav-link">Register</NavLink>
                                                 </li>
-                                        }
+                                        } */}
 
                                     </HOC>
                             }
@@ -69,16 +56,5 @@ export class Navbar extends Component {
         )
     }
 }
-let token = JSON.parse(localStorage.getItem('user'))
-const mapStateToProps = (state) => ({
-    token: token ? token.token : state.auth.token
-})
 
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => dispatch(actions.authLogout())
-    }
-}
-
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar))
+export default Footer

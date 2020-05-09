@@ -8,7 +8,6 @@ export class Layout extends Component {
             <HOC>
                 <Navbar />
                 <main>
-                    {/* <Sidebar /> */}
                     {this.props.children}
                 </main>
             </HOC>

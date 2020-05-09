@@ -1,13 +1,17 @@
 import React from 'react'
-import { Route } from "react-router-dom"
+import { Route, Redirect } from "react-router-dom"
 
-const RoutesWithLayout = ({ component: Component, layout: Layout, ...rest }) => {
+const RoutesWithLayout = ({ component: Component, layout: Layout, redirect, ...rest }) => {
     return (
-        <Route {...rest} render={props => (
-            <Layout>
-                <Component {...props} />
-            </Layout>
-        )} />
+        redirect ? (
+            <Redirect to={redirect} />
+        ) : (
+                <Route {...rest} render={props => (
+                    <Layout>
+                        <Component {...props} />
+                    </Layout>
+                )} />
+            )
     )
 }
 
